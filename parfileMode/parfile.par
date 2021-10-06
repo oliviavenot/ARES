@@ -1,0 +1,106 @@
+[Global]
+xsec_path = give_xsec_path_here
+cia_path = give_cia_path_here
+
+
+[Chemistry]
+chemistry_type = taurex
+fill_gases = H2,He
+ratio = 0.17
+
+    [[H2O]]
+    gas_type = constant
+    mix_ratio = 0.0023988
+
+    [[TiO]]
+    gas_type = constant
+    mix_ratio = 0.00014125
+    
+    [[e-]]
+    gas_type = constant
+    mix_ratio = 1e-7
+
+    [[H]]
+    gas_type = 2layer
+    mix_ratio_surface = 1e-2
+    mix_ratio_top = 0.6
+    mix_ratio_P = 1e4
+
+[Temperature]
+profile_type = NPoint
+T_surface = 3200
+P_surface = 1e5
+T_top = 3500
+P_top = 1e1
+temperature_points = 2800, 
+pressure_points = 1e3,
+
+
+[Pressure]
+profile_type = Simple
+atm_min_pressure = 1e-5
+atm_max_pressure = 1e7
+nlayers = 100
+
+[Planet]
+planet_type = Simple
+planet_mass = 1.13
+planet_radius = 1.14
+
+[Star]
+#star_type = phoenix
+star_type = blackbody
+radius = 0.75
+temperature = 5052
+#phoenix_path= /home/dc-chan1/rds/rds-dirac-dp094/Input/phoenix/phoenix
+
+[Model]
+model_type = emission
+
+    [[Absorption]]
+
+    [[CIA]]
+    cia_pairs = H2-He,H2-H2
+    
+    [[Rayleigh]]
+
+    [[HydrogenIon]]
+
+[Observation]
+observed_spectrum = give_path/spectrum.dat
+
+
+[Optimizer]
+optimizer = nestle
+num_live_points=100
+method = single
+#optimizer = multinest
+#num_live_points = 500
+#max_iterations = 0
+#evidence_tolerance = 0.5
+#resume=False
+#verbose_output= True
+#multi_nest_path = m
+
+[Fitting]
+planet_radius:fit = False
+planet_radius:bounds = 1.25,1.75
+planet_mass:fit = False
+planet_mass:bounds = 0.1, 0.5
+H2O:fit = True
+H2O:bounds = 1e-2,1e-12
+TiO:fit = True
+TiO:bounds = 1e-2,1e-12
+e-:fit = True
+e-:bounds = 1e-2,1e-12
+T_surface:fit = True
+T_surface:bounds = 100,4000
+T_point1:fit = True
+T_point1:bounds = 100,4000
+P_point1:fit = True
+P_point1:bounds = 1e6,1e2
+T_top:fit = True
+T_top:bounds = 100,4000
+P_top:fit = True
+P_top:bounds = 1e4,1e-2
+
